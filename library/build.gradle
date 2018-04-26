@@ -12,10 +12,10 @@ dependencies {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     lintOptions {
         abortOnError false
     }
 }
 
-apply from: '../maven_push.gradle'
+//apply from: '../maven_push.gradle'
