@@ -420,7 +420,6 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (getPanelState() == PanelState.COLLAPSED) {
             smoothToBottom();
             invalidate();
-            return;
         }
     }
 
@@ -641,6 +640,47 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return mClipPanel;
     }
 
+    /**
+     * Check if panel expanded or not
+     *
+     * @return true if expanded false if collapsed
+     */
+    public boolean isExpanded() {
+        return getPanelState() == PanelState.EXPANDED;
+    }
+
+    /**
+     * Expand panel
+     */
+    public void expand() {
+        setPanelState(PanelState.EXPANDED);
+    }
+
+    /**
+     * Collapse panel
+     */
+    public void collapse() {
+        setPanelState(PanelState.COLLAPSED);
+    }
+
+    /**
+     * Slide panel to anchor
+     */
+    public void slideToAnchor() {
+        setPanelState(PanelState.ANCHORED);
+    }
+
+
+    /**
+     * Toggle panel
+     */
+    public void toggle() {
+        if(isExpanded()) {
+            collapse();
+        } else {
+            expand();
+        }
+    }
 
     void dispatchOnPanelSlide(View panel) {
         synchronized (mPanelSlideListeners) {
@@ -947,7 +987,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
         try {
             mDragHelper.processTouchEvent(ev);
-            return true;
+            return super.onTouchEvent(ev);//true;
         } catch (Exception ex) {
             // Ignore the pointer out of range exception
             return false;
