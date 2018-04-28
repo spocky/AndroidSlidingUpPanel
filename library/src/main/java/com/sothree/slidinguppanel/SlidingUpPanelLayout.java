@@ -26,6 +26,7 @@ import com.sothree.slidinguppanel.library.R;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+
 public class SlidingUpPanelLayout extends ViewGroup {
 
     private static final String TAG = SlidingUpPanelLayout.class.getSimpleName();
@@ -405,10 +406,10 @@ public class SlidingUpPanelLayout extends ViewGroup {
             requestLayout();
         }
 
-        if (getPanelState() == PanelState.COLLAPSED) {
+        /*if (getPanelState() == PanelState.COLLAPSED) {
             smoothToBottom();
             invalidate();
-        }
+        }*/
     }
 
     protected void smoothToBottom() {
@@ -525,7 +526,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
             mDragView.setClickable(true);
             mDragView.setFocusable(false);
             mDragView.setFocusableInTouchMode(false);
-            mDragView.setOnClickListener(new OnClickListener() {
+            /*mDragView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!isEnabled() || !isTouchEnabled()) return;
@@ -539,8 +540,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
                         setPanelState(PanelState.COLLAPSED);
                     }
                 }
-            });
-            ;
+            });*/
         }
     }
 
@@ -616,6 +616,24 @@ public class SlidingUpPanelLayout extends ViewGroup {
      */
     public boolean isExpanded() {
         return getPanelState() == PanelState.EXPANDED;
+    }
+
+    /**
+     * Check if panel collapsed or not
+     *
+     * @return true if collapsed false if expanded
+     */
+    public boolean isCollapsed() {
+        return getPanelState() == PanelState.COLLAPSED;
+    }
+
+    /**
+     * Check if panel dragged or not
+     *
+     * @return true if dragged
+     */
+    public boolean isDragged() {
+        return getPanelState() == PanelState.DRAGGING;
     }
 
     /**
@@ -956,7 +974,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
         try {
             mDragHelper.processTouchEvent(ev);
-            return true; //super.onTouchEvent(ev);//true;
+            return super.onTouchEvent(ev);//true;
         } catch (Exception ex) {
             // Ignore the pointer out of range exception
             return false;
